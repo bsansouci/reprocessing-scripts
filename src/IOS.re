@@ -57,8 +57,8 @@ let buildForArch = (~byte=false, ~suffixed=true, bsconfig, cross, xcode, arch, s
     cc: xcode ++ "/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang",
     outDir: "./ios/",
     ppx: [
-      Filename.concat(BuildUtils.findMatchenv(), "matchenv"),
-      Filename.concat(BuildUtils.findPpxEnv(), "ppx-env"),
+      /*Filename.concat(BuildUtils.findMatchenv(), "matchenv"),
+      Filename.concat(BuildUtils.findPpxEnv(), "ppx-env"),*/
     ],
     ocamlDir: ocaml,
     refmt: "./node_modules/bs-platform/lib/refmt3.exe",
