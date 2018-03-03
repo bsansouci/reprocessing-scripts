@@ -143,9 +143,40 @@ let xcodebuild = (bsconfig) => {
 let startSimulator = (bsconfig) => {
   let appName = getAppName(bsconfig);
   print_endline("Starting simulator");
-  ReasonCliTools.Commands.execSync(
+  /*ReasonCliTools.Commands.execSync(
     ~onOut=print_endline,
     ~cmd="ios-sim launch ios/_build/Debug-iphonesimulator/" ++ appName ++ ".app --log ./ios.log --devicetypeid 'iPhone-8, 11.2'",
     ()
+  ) |> BuildUtils.expectSuccess("Unable to start simulator");*/
+  ReasonCliTools.Commands.execSync(
+    ~onOut=print_endline,
+    ~cmd="open -a \"Simulator\"",
+    ()
   ) |> BuildUtils.expectSuccess("Unable to start simulator");
+  ReasonCliTools.Commands.execSync(
+    ~onOut=print_endline,
+    ~cmd="./waitforsimulator.sh",
+    ()
+  ) |> BuildUtils.expectSuccess("Unable to start simulator");
+  ReasonCliTools.Commands.execSync(
+    ~onOut=print_endline,
+    ~cmd="xcrun simctl install booted ./ios/_build/Debug-iphonesimulator/" ++ appName ++ ".app",
+    ()
+  ) |> BuildUtils.expectSuccess("Unable to start simulator");
+  ReasonCliTools.Commands.execSync(
+    ~onOut=print_endline,
+    ~cmd="xcrun simctl launch --console booted com.jaredforsyth.reprocessing-example",
+    ()
+  ) |> BuildUtils.expectSuccess("Unable to start simulator");
+  /*deploy-simulator:
+  ## Boot the simulator
+  open -a "Simulator" --args -CurrentDeviceUDID $(DEVICE_ID)
+
+  ./waitforsimulator.sh
+
+  ## Install the app
+  xcrun simctl install booted $(BUILD_DIR)/$(APP_NAME).app
+
+  ## Launch the app without deps on ios-deploy
+  xcrun simctl launch --console booted $(BUNDLE_ID)*/
 };
