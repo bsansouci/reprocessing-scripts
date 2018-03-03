@@ -35,22 +35,20 @@ let buildForArch = (~byte=false, ~suffixed=true, bsconfig, cross, xcode, arch, s
     BuildUtils.copyDeep("./node_modules/reprocessing-scripts/templates/ios", "./ios");
   };
 
-  let iosDir = BuildUtils.findNodeModule("@jaredly/reasongl-ios", "./node_modules") |> Builder.unwrap("unable to find reasongl-ios dependency");
+  /*let iosDir = BuildUtils.findNodeModule("@jaredly/reasongl-ios", "./node_modules") |> Builder.unwrap("unable to find reasongl-ios dependency");*/
 
   let (packagedLibs, dependencyDirs) = BsConfig.processDeps(bsconfig);
 
   Builder.compile(Builder.{
-    name: suffixed ? "reasongl_" ++ arch : "reasongl",
+    name: suffixed ? "reason_" ++ arch : "reason",
     byte,
     shared: false,
     mainFile: "./src/ios.re",
-    cOpts: "-arch " ++ arch ++ " -isysroot " ++ sdk ++ " -isystem " ++ ocaml ++ "/lib/ocaml -DCAML_NAME_SPACE -I" ++ Filename.concat(iosDir, "ios") ++ " -I" ++ ocaml ++ "/lib/ocaml/caml -fno-objc-arc -miphoneos-version-min=7.0",
+    cOpts: "-arch " ++ arch ++ " -isysroot " ++ sdk ++ " -isystem " ++ ocaml ++ "/lib/ocaml -DCAML_NAME_SPACE" ++ " -I" ++ ocaml ++ "/lib/ocaml/caml -fno-objc-arc -miphoneos-version-min=7.0",
     mlOpts: "",
     /* (byte ? "bigarray.cma dynlink.cma unix.cma" : "bigarray.cmxa"), */
     dependencyDirs: [
-      Filename.concat(BuildUtils.findNodeModule("@jaredly/reasongl-interface", "./node_modules") |> unwrap("unable to find reasongl-interface dependency"), "src"),
-      Filename.concat(iosDir, "src"),
-      Filename.concat(BuildUtils.findNodeModule("@jaredly/reprocessing", "./node_modules") |> unwrap("unable to find reprocessing dependency"), "src"),
+      "./bindings",
     ] @ dependencyDirs,
     packagedLibs,
     buildDir: "_build/ios_" ++ arch,
@@ -88,11 +86,11 @@ let both = (bsconfig) => {
   buildForArch(bsconfig, cross, xcode, "arm64", "iPhoneOS");
 
   BuildUtils.readCommand(
-    "lipo -create -o ios/libreasongl.a ios/libreasongl_arm64.a ios/libreasongl_x86_64.a"
+    "lipo -create -o ios/libreason.a ios/libreason_arm64.a ios/libreason_x86_64.a"
   ) |> Builder.unwrap("unable to link together") |> ignore;
 
-  Unix.unlink("ios/libreasongl_arm64.a");
-  Unix.unlink("ios/libreasongl_x86_64.a");
+  Unix.unlink("ios/libreason_arm64.a");
+  Unix.unlink("ios/libreason_x86_64.a");
 };
 
 let isLink = (path) => switch (Unix.readlink(path)) {
@@ -100,14 +98,14 @@ let isLink = (path) => switch (Unix.readlink(path)) {
 | _ => true
 };
 
-let ensureSymlink = () => {
+/*let ensureSymlink = () => {
   let iosDir = BuildUtils.findNodeModule("reasongl-ios", "node_modules") |> Builder.unwrap("Package reasongl-ios not found");
   if (isLink("ios/reprocessing")) {
     Unix.unlink("ios/reprocessing");
   };
   Unix.symlink(Filename.concat("..", Filename.concat(iosDir, "ios")), "ios/reprocessing");
 };
-
+*/
 let getAppName = config => {
   let (|>>) = Json.bind;
   config |> Json.get("iosPathName")
@@ -118,7 +116,7 @@ let getAppName = config => {
 };
 
 let buildForDevice = (bsconfig) => {
-  ensureSymlink();
+  /*ensureSymlink();*/
   let appName = getAppName(bsconfig);
   ReasonCliTools.Commands.execSync(
     ~onOut=print_endline,
@@ -133,7 +131,7 @@ let buildForDevice = (bsconfig) => {
 };
 
 let xcodebuild = (bsconfig) => {
-  ensureSymlink();
+  /*ensureSymlink();*/
   let appName = getAppName(bsconfig);
   ReasonCliTools.Commands.execSync(
     ~onOut=print_endline,
