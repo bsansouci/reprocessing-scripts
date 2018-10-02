@@ -16,13 +16,12 @@
     "clean": "bsb -clean-world"
   },
   "dependencies": {
-    "bs-platform": "bsansouci/bsb-native#fast",
-    "ios-deploy": "1.9.2",
+    "bs-platform": "bsansouci/bsb-native#3.2.0",
+    "ios-deploy": "1.9.3",
     "ios-sim": "6.1.2",
     "minimist.re": "^0.0.3",
     "pack.re": "0.1.0",
     "reason-cli-tools": "^1.0.3",
-    "reason-simple-server": "^1.2.0",
     "rex-json": "1.1.0"
   }
 }

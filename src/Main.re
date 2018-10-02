@@ -36,9 +36,9 @@ Usage:
 |};
 
 let main = (bsconfig) => switch (Sys.argv) {
-| [|_, "all"|] => {Native.byte(); Native.run(); Android.both(bsconfig); IOS.both(bsconfig); Js.build()}
-| [|_, "js"|] => Js.build()
-| [|_, "js:serve"|] => Js.hot()
+| [|_, "all"|] => {Native.byte(); Native.run(); Android.both(bsconfig); IOS.both(bsconfig); }
+/*| [|_, "js"|] => Js.build()*/
+/*| [|_, "js:serve"|] => Js.hot()*/
 | [|_, "native"|] => Native.byte() |> ignore
 | [|_, "native:hot"|] => Native.hot(bsconfig)
 | [|_, "native:bundle"|] => {Native.run();Native.bundle(bsconfig)}

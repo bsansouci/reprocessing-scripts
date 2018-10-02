@@ -1,4 +1,4 @@
-
+/*
 let basic_html = {|
 <!DOCTYPE html>
 <html>
@@ -222,3 +222,4 @@ let watch = () => {
   };
   (poll, close)
 }; */
+*/
