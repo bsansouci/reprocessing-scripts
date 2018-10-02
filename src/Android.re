@@ -148,8 +148,8 @@ let configForArch = (~byte, bsconfig, entryFile, arch, ocamlarch, ndkarch, cxxar
     cc: ndk ++ "/toolchains/" ++ gccarch ++ "-4.9/prebuilt/darwin-x86_64/bin/" ++ gccarch2 ++ "-gcc",
     outDir: "./android/app/src/main/jniLibs/" ++ arch ++ "/",
     ppx: [
-      Filename.concat(BuildUtils.findMatchenv(), "matchenv"),
-      Filename.concat(BuildUtils.findPpxEnv(), "ppx-env"),
+      /*Filename.concat(BuildUtils.findMatchenv(), "matchenv"),*/
+      /*Filename.concat(BuildUtils.findPpxEnv(), "ppx-env"),*/
     ],
     ocamlDir: ocaml,
     refmt: "./node_modules/bs-platform/lib/refmt3.exe",

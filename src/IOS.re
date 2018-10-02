@@ -205,8 +205,8 @@ let buildForArch =
       cc: xcode ++ "/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang",
       outDir: "./ios/",
       ppx: [
-        BuildUtils.findMatchenv() +/ "matchenv",
-        BuildUtils.findPpxEnv() +/ "ppx-env",
+        /*BuildUtils.findMatchenv() +/ "matchenv",*/
+        /*BuildUtils.findPpxEnv() +/ "ppx-env",*/
       ],
       ocamlDir: ocaml,
       refmt: "./node_modules/bsb-native/lib/refmt.exe",
