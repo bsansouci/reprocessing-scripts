@@ -209,7 +209,7 @@ let buildForArch =
         BuildUtils.findPpxEnv() +/ "ppx-env",
       ],
       ocamlDir: ocaml,
-      refmt: "./node_modules/bs-platform/lib/refmt3.exe",
+      refmt: "./node_modules/bsb-native/lib/refmt.exe",
     },
   );
 };
