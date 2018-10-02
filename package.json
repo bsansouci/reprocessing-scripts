@@ -22,6 +22,6 @@
     "minimist.re": "bsansouci/minimist.re",
     "pack.re": "bsansouci/pack.re",
     "reason-cli-tools": "bsansouci/reason-cli-tools",
-    "rex-json": "bsansouci/rex-json"
+    "rex-json": "bsansouci/rex-json#upgrade"
   }
 }
