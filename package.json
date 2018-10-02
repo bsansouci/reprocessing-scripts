@@ -19,9 +19,9 @@
     "bsb-native": "4.0.6",
     "ios-deploy": "1.9.3",
     "ios-sim": "6.1.2",
-    "minimist.re": "^0.0.3",
-    "pack.re": "0.1.0",
+    "minimist.re": "bsansouci/minimist.re",
+    "pack.re": "bsansouci/pack.re",
     "reason-cli-tools": "bsansouci/reason-cli-tools",
-    "rex-json": "1.1.0"
+    "rex-json": "bsansouci/rex-json"
   }
 }
